@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peter Sarpong — Business & Systems Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --cream: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --slate: #2c3e50;
+    --muted: #6b7280;
+    --white: #ffffff;
+    --border: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 1.4rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(245,240,232,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+
+  .nav-links a {
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--muted);
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    right: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 700px;
+    height: 700px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-text { max-width: 560px; }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin-bottom: 1rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.35s forwards;
+  }
+
+  .hero-name em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--slate);
+    margin-bottom: 1.8rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-desc {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.65s forwards;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+
+  .btn-primary {
+    padding: 0.85rem 2rem;
+    background: var(--ink);
+    color: var(--cream);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    transition: background 0.25s, transform 0.2s;
+    border: 2px solid var(--ink);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+    transform: translateY(-2px);
+  }
+
+  .btn-outline {
+    padding: 0.85rem 2rem;
+    background: transparent;
+    color: var(--ink);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    border: 2px solid var(--ink);
+    transition: all 0.25s;
+  }
+
+  .btn-outline:hover {
+    background: var(--ink);
+    color: var(--cream);
+    transform: translateY(-2px);
+  }
+
+  /* ── PHOTO SIDE ── */
+  .hero-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.6s forwards;
+  }
+
+  .photo-frame {
+    position: relative;
+    width: 400px;
+    height: 500px;
+  }
+
+  .photo-frame::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: -20px;
+    bottom: -20px;
+    border: 2px solid var(--gold);
+    z-index: 0;
+  }
+
+  .photo-frame img {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    filter: grayscale(15%);
+  }
+
+  .photo-badge {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    z-index: 2;
+    background: var(--gold);
+    color: var(--ink);
+    padding: 1rem 1.5rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ── SECTION WRAPPER ── */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    width: 60px;
+    height: 3px;
+    background: var(--gold);
+    margin: 1rem 0 3rem;
+  }
+
+  /* ── ABOUT ── */
+  .about-section {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .about-section .section-title { color: var(--cream); }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .about-text p {
+    font-size: 1rem;
+    line-height: 1.9;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 1.2rem;
+  }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .stat-card {
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,168,76,0.05), transparent);
+  }
+
+  .stat-card:hover { border-color: var(--gold); }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-top: 0.4rem;
+  }
+
+  /* ── SKILLS ── */
+  .skills-section { background: var(--cream); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .skill-group {
+    border-top: 2px solid var(--ink);
+    padding-top: 1.5rem;
+  }
+
+  .skill-group-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+  .skill-tag {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.85rem;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    transition: all 0.2s;
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .skill-tag.gold {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .skill-tag.gold:hover {
+    background: var(--gold);
+    color: var(--ink);
+  }
+
+  /* ── PROJECTS ── */
+  .projects-section { background: #f0ebe0; }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid rgba(13,13,13,0.08);
+    padding: 2.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--gold);
+    transition: width 0.4s;
+  }
+
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); }
+  .project-card:hover::after { width: 100%; }
+
+  .project-tag {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+  }
+
+  .project-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+
+  .project-desc {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  .project-tools { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  .tool-chip {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    background: var(--cream);
+    color: var(--slate);
+    font-weight: 500;
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── EXPERIENCE ── */
+  .experience-section { background: var(--cream); }
+
+  .timeline { position: relative; max-width: 860px; }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  .timeline-item {
+    padding-left: 2.5rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -5px;
+    top: 8px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--cream);
+    box-shadow: 0 0 0 3px rgba(201,168,76,0.2);
+  }
+
+  .timeline-period {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-role {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.15rem;
+  }
+
+  .timeline-org {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 0.8rem;
+    font-style: italic;
+  }
+
+  .timeline-detail {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: #4a5568;
+  }
+
+  /* ── EDUCATION ── */
+  .education-section {
+    background: var(--ink);
+    color: var(--cream);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+
+  .edu-card {
+    border: 1px solid rgba(201,168,76,0.25);
+    padding: 2.5rem;
+    transition: border-color 0.3s;
+  }
+
+  .edu-card:hover { border-color: var(--gold); }
+
+  .edu-degree {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .edu-school {
+    font-size: 0.95rem;
+    color: var(--cream);
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+  }
+
+  .edu-detail {
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.5);
+    line-height: 1.6;
+  }
+
+  /* ── CONTACT ── */
+  .contact-section { background: var(--cream); }
+
+  .contact-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  .contact-info p {
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: var(--muted);
+    margin-bottom: 2rem;
+  }
+
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ink);
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(13,13,13,0.1);
+    transition: color 0.2s;
+  }
+
+  .contact-link:hover { color: var(--gold); }
+
+  .contact-link-icon {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid currentColor;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .contact-link:hover .contact-link-icon {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink);
+  }
+
+  .contact-form { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .form-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .form-input, .form-textarea {
+    background: transparent;
+    border: 1.5px solid rgba(13,13,13,0.2);
+    padding: 0.85rem 1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: none;
+  }
+
+  .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+
+  .form-textarea { min-height: 130px; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #080808;
+    color: rgba(245,240,232,0.4);
+    padding: 2.5rem 4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+
+  footer a { color: var(--gold); text-decoration: none; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+    .hero-visual { order: -1; }
+    .photo-frame { width: 280px; height: 340px; }
+    .about-grid, .skills-grid, .projects-grid, .edu-grid, .contact-wrapper { grid-template-columns: 1fr; gap: 2.5rem; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Peter <span>Sarpong</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Business & Systems Analyst</p>
+    <h1 class="hero-name">Hi, I'm<br><em>Peter Sarpong</em></h1>
+    <p class="hero-title">MS Business Analytics & AI · American University</p>
+    <p class="hero-desc">I turn complex data and operational challenges into clear, actionable insights. With a foundation in finance, ERP systems, and analytics, I bridge the gap between business needs and data-driven solutions.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work</a>
+      <a href="mailto:peter.sarpong1157@gmail.com" class="btn-outline">Get In Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="photo-frame">
+      <img src="WhatsApp_Image_2026-05-23_at_6_08_20_PM.jpeg" alt="Peter Sarpong" onerror="this.style.background='#2c3e50'; this.style.display='block';">
+      <div class="photo-badge">MS Analytics<br>& AI · 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+  <div class="section-label reveal">Who I Am</div>
+  <h2 class="section-title reveal">Analyst. Problem Solver.<br>Data Storyteller.</h2>
+  <div class="divider reveal"></div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I'm a detail-oriented Business & Systems Analyst with 5+ years of experience across finance, healthcare, banking, and consulting. My expertise spans project accounting, financial reporting, ERP-supported systems, and dashboard development.</p>
+      <p>Recently completing my Master's in Business Analytics & AI at American University, I've developed deep expertise in SQL, Power BI, Python, Tableau, and machine learning — applying these tools to real-world business problems.</p>
+      <p>I'm driven by the challenge of transforming raw data into decisions that matter. Whether building a Tableau dashboard, running a regression model, or streamlining a reporting workflow, I bring precision and clarity to every project.</p>
+    </div>
+    <div class="about-stats reveal">
+      <div class="stat-card">
+        <div class="stat-number">5+</div>
+        <div class="stat-label">Years Experience</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">4</div>
+        <div class="stat-label">Industries Served</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3.36</div>
+        <div class="stat-label">MS GPA / 4.0</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Analytics Projects</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="skills-section" id="skills">
+  <div class="section-label reveal">Capabilities</div>
+  <h2 class="section-title reveal">Tools & Expertise</h2>
+  <div class="divider reveal"></div>
+  <div class="skills-grid">
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Analytics & Data</div>
+      <div class="skill-tags">
+        <span class="skill-tag gold">SQL</span>
+        <span class="skill-tag gold">Python</span>
+        <span class="skill-tag gold">R</span>
+        <span class="skill-tag gold">Machine Learning</span>
+        <span class="skill-tag gold">Statistical Modeling</span>
+        <span class="skill-tag gold">Regression Analysis</span>
+        <span class="skill-tag gold">NLP / Text Analytics</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Visualization & Reporting</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">Tableau</span>
+        <span class="skill-tag">Advanced Excel</span>
+        <span class="skill-tag">Pivot Tables</span>
+        <span class="skill-tag">VLOOKUP / XLOOKUP</span>
+        <span class="skill-tag">Dashboard Design</span>
+        <span class="skill-tag">ggplot2</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Finance & Operations</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Project Accounting</span>
+        <span class="skill-tag">AP / AR</span>
+        <span class="skill-tag">ERP Systems</span>
+        <span class="skill-tag">General Ledger</span>
+        <span class="skill-tag">Month-End Close</span>
+        <span class="skill-tag">Cost Tracking</span>
+        <span class="skill-tag">Financial Reporting</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Business Analysis</div>
+      <div class="skill-tags">
+        <span class="skill-tag gold">Use Case Modeling</span>
+        <span class="skill-tag gold">Requirements Gathering</span>
+        <span class="skill-tag gold">Process Improvement</span>
+        <span class="skill-tag gold">BPM Diagrams</span>
+        <span class="skill-tag gold">Systems Analysis</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Compliance & Governance</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SEC Item 106</span>
+        <span class="skill-tag">GDPR / CCPA</span>
+        <span class="skill-tag">NIST Framework</span>
+        <span class="skill-tag">Cybersecurity Governance</span>
+        <span class="skill-tag">Risk Management</span>
+      </div>
+    </div>
+    <div class="skill-group reveal">
+      <div class="skill-group-title">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Data Storytelling</span>
+        <span class="skill-tag">Stakeholder Reporting</span>
+        <span class="skill-tag">Cross-functional Collaboration</span>
+        <span class="skill-tag">Workflow Automation</span>
+        <span class="skill-tag">Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects-section" id="projects">
+  <div class="section-label reveal">Portfolio</div>
+  <h2 class="section-title reveal">Selected Projects</h2>
+  <div class="divider reveal"></div>
+  <div class="projects-grid">
+
+    <div class="project-card reveal">
+      <div class="project-tag">Machine Learning · NLP</div>
+      <div class="project-name">Fraudulent Job Posting Detection</div>
+      <div class="project-desc">Built a supervised ML pipeline to detect fraudulent job listings from 18,000+ postings. Applied text analytics, NLP feature engineering, and classification models (Logistic Regression, Random Forest, GBM). Found that 67.3% of fake jobs lacked company logos and used scam-indicator terms.</div>
+      <div class="project-tools">
+        <span class="tool-chip">R</span>
+        <span class="tool-chip">tidyverse</span>
+        <span class="tool-chip">ggplot2</span>
+        <span class="tool-chip">NLP</span>
+        <span class="tool-chip">Random Forest</span>
+        <span class="tool-chip">GBM</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-tag">Regression Analysis · Sports Analytics</div>
+      <div class="project-name">FIFA 22 Player Rating Analysis</div>
+      <div class="project-desc">Analyzed 16,366 player records to identify key drivers of overall FIFA ratings. Regression model explained 45% of rating variance. Found market value (+0.417/£M), age (over-30 players +4.255 pts), crossing ability, and dribbling skill all significantly predict player ratings (p &lt; 0.001).</div>
+      <div class="project-tools">
+        <span class="tool-chip">R</span>
+        <span class="tool-chip">Regression</span>
+        <span class="tool-chip">Power Analysis</span>
+        <span class="tool-chip">Statistical Modeling</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-tag">Data Visualization · Traffic Safety</div>
+      <div class="project-name">Traffic Accident Analysis Dashboard</div>
+      <div class="project-desc">Analyzed 400,000+ traffic records to identify crash patterns by weather, lighting, road defects, and trafficway type. Developed stakeholder dashboards revealing that 55.7% of fatal crashes occur in daylight and four-way intersections account for 38% of fatal injuries.</div>
+      <div class="project-tools">
+        <span class="tool-chip">Tableau</span>
+        <span class="tool-chip">R</span>
+        <span class="tool-chip">ggplot2</span>
+        <span class="tool-chip">Dashboard Design</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-tag">Cybersecurity · Governance</div>
+      <div class="project-name">Intel SEC Cybersecurity Governance Briefing</div>
+      <div class="project-desc">Assessed Intel's 10-K cybersecurity disclosures against SEC Item 106 requirements. Evaluated board oversight, CISO reporting structure, incident response, and risk frameworks. Identified gaps in investment transparency and board cyber literacy, recommending a dedicated Cyber-Risk Subcommittee.</div>
+      <div class="project-tools">
+        <span class="tool-chip">SEC Item 106</span>
+        <span class="tool-chip">NIST</span>
+        <span class="tool-chip">Governance Analysis</span>
+        <span class="tool-chip">PowerPoint</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-tag">Systems Analysis · Requirements</div>
+      <div class="project-name">E's Gourmet Restaurant System Design</div>
+      <div class="project-desc">Designed complete use case model for a restaurant management system. Developed 7 actor specification cards, a full use case diagram with system boundary, and 6 detailed initial use cases covering reservations, ordering, payment, and inventory. Recommended KDS and mobile ordering improvements.</div>
+      <div class="project-tools">
+        <span class="tool-chip">Use Case Modeling</span>
+        <span class="tool-chip">BPM</span>
+        <span class="tool-chip">Systems Analysis</span>
+        <span class="tool-chip">UML</span>
+      </div>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="project-tag">Financial Reporting · BI</div>
+      <div class="project-name">Marketing Lead Analytics Dashboard</div>
+      <div class="project-desc">Built a multi-panel Tableau dashboard analyzing lead cost distribution, channel spend, geographic distribution, and 30/90-day conversion rates across 2013–2017. Identified Email ($599K) and Display ($610K) as top spend channels with Webinar achieving the lowest cost-per-lead at $2.</div>
+      <div class="project-tools">
+        <span class="tool-chip">Tableau</span>
+        <span class="tool-chip">SQL</span>
+        <span class="tool-chip">Excel</span>
+        <span class="tool-chip">KPI Analysis</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience-section" id="experience">
+  <div class="section-label reveal">Career Path</div>
+  <h2 class="section-title reveal">Professional Experience</h2>
+  <div class="divider reveal"></div>
+  <div class="timeline">
+
+    <div class="timeline-item reveal">
+      <div class="timeline-period">Feb 2026 – Present</div>
+      <div class="timeline-role">Accounting Analyst (Volunteer)</div>
+      <div class="timeline-org">The Saviour Church of Ghana – North America Circuit, Frederick, MD</div>
+      <div class="timeline-detail">Supporting financial reporting, reconciliations, and expense tracking. Built Excel dashboards to improve reporting visibility. Assisted with journal entries and financial data validation processes.</div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-period">Jun 2023 – Apr 2024</div>
+      <div class="timeline-role">Accountant — AP & ERP-Supported Financial Operations</div>
+      <div class="timeline-org">Wipro · Mumbai, India</div>
+      <div class="timeline-detail">Managed invoice processing, payment tracking, and AP support within ERP systems. Performed reconciliations and supported month-end close. Collaborated with teams to improve financial workflows and reporting accuracy.</div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-period">Jun 2020 – Aug 2021</div>
+      <div class="timeline-role">Accountant — Banking Systems & Transaction Processing</div>
+      <div class="timeline-org">Ghana Commercial Bank (GCB) · Accra, Ghana</div>
+      <div class="timeline-detail">Supported operational and financial reporting through reconciliations, transaction validation, and general ledger reconciliation. Maintained accurate financial records and resolved discrepancies.</div>
+    </div>
+
+    <div class="timeline-item reveal">
+      <div class="timeline-period">Apr 2017 – May 2020</div>
+      <div class="timeline-role">Accountant — High-Volume Operations</div>
+      <div class="timeline-org">Korle Bu Teaching Hospital · Accra, Ghana</div>
+      <div class="timeline-detail">Supported high-volume financial operations and expense tracking. Built Excel-based financial reports and dashboards. Validated financial data and improved reporting accuracy across operational systems.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section class="education-section" id="education">
+  <div class="section-label reveal" style="color: var(--gold)">Academic Background</div>
+  <h2 class="section-title reveal">Education</h2>
+  <div class="divider reveal"></div>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-degree">Master of Science in Business Analytics & Artificial Intelligence</div>
+      <div class="edu-school">American University · Washington, DC</div>
+      <div class="edu-detail">Graduated December 2025 · GPA: 3.36/4.0<br><br>Coursework: Machine Learning, Statistical Modeling, SQL Analytics, Data Visualization, Systems Analysis, Cybersecurity Governance, Business Intelligence</div>
+    </div>
+    <div class="edu-card reveal" style="position:relative; overflow:hidden;">
+      <div style="display:inline-flex; align-items:center; gap:0.5rem; background:var(--gold); color:var(--ink); padding:0.35rem 0.9rem; font-size:0.7rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; margin-bottom:1rem;">
+        <span style="font-size:0.85rem;">★</span> First Class with Distinction
+      </div>
+      <div class="edu-degree">Bachelor of Commerce in Finance and Taxation</div>
+      <div class="edu-school">Marwadi University · Rajkot, Gujarat, India</div>
+      <div class="edu-detail">Graduated May 2024<br><br>Specialized in corporate finance, taxation frameworks, financial systems, and accounting principles across Indian and international markets.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact-section" id="contact">
+  <div class="section-label reveal">Let's Connect</div>
+  <h2 class="section-title reveal">Open to Opportunities</h2>
+  <div class="divider reveal"></div>
+  <div class="contact-wrapper">
+    <div class="contact-info reveal">
+      <p>I'm actively exploring roles in Business Analysis, Financial Operations, Reporting Analytics, Systems Support, and Project/Construction Finance. If you're looking for someone who brings both financial acumen and analytical depth, let's talk.</p>
+      <div class="contact-links">
+        <a href="mailto:peter.sarpong1157@gmail.com" class="contact-link">
+          <span class="contact-link-icon">✉</span>
+          peter.sarpong1157@gmail.com
+        </a>
+        <a href="tel:+12272138956" class="contact-link">
+          <span class="contact-link-icon">☏</span>
+          (227) 213-8956
+        </a>
+        <a href="https://www.linkedin.com/in/petersarpong" target="_blank" class="contact-link">
+          <span class="contact-link-icon">in</span>
+          linkedin.com/in/petersarpong
+        </a>
+        <a href="https://github.com/petersarpong" target="_blank" class="contact-link">
+          <span class="contact-link-icon">⌥</span>
+          github.com/petersarpong
+        </a>
+      </div>
+    </div>
+    <div class="reveal">
+      <form class="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-group">
+          <label class="form-label">Your Name</label>
+          <input type="text" class="form-input" placeholder="Jane Smith" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" placeholder="jane@company.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Message</label>
+          <textarea class="form-textarea" placeholder="Tell me about the opportunity..." required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="border:none;cursor:pointer;width:fit-content;">Send Message</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2026 Peter Sarpong · Business & Systems Analyst</span>
+  <span>Baltimore, MD · <a href="mailto:peter.sarpong1157@gmail.com">peter.sarpong1157@gmail.com</a></span>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = `${(i % 4) * 0.08}s`;
+    observer.observe(el);
+  });
+
+  // Form submit mock
+  function handleSubmit(e) {
+    e.preventDefault();
+    const btn = e.target.querySelector('button');
+    btn.textContent = 'Message Sent ✓';
+    btn.style.background = '#c9a84c';
+    btn.style.color = '#0d0d0d';
+    btn.style.borderColor = '#c9a84c';
+    setTimeout(() => {
+      btn.textContent = 'Send Message';
+      btn.style.background = '';
+      btn.style.color = '';
+      btn.style.borderColor = '';
+      e.target.reset();
+    }, 3000);
+  }
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 60 ? '0 4px 30px rgba(0,0,0,0.08)' : 'none';
+  });
+</script>
+</body>
+</html>
